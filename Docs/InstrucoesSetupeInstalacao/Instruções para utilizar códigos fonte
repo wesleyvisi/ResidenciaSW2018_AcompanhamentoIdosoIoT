@@ -1,0 +1,15 @@
+**Localização de Pulseira Bluetooth 
+
+Para utilizar o algoritmo é necessário instalar as bibliotecas do ESP32 na IDE do Arduino, importe o código na IDE, troque o endereço MAC do Bluetooth para um dispositivo presente e transfira para a placa, ele vai acender um LED no pino 5 sempre que o dispositivo estiver próximo. 
+
+ 
+
+**Processamento de Imagem 
+
+Para utilizar qualquer código dessa pasta é necessário instalar a biblioteca OpenCV no computador e configurar a IDE para importar ela, abrir o código fonte na IDE e trocar o endereço da câmera para uma que esteja conectada a máquina, nessa pasta existem códigos em C++ na estrutura de projeto do Code::Blocks e em python que podem ser abertos em qualquer IDE para python. Os códigos foram desenvolvidos em um ambiente Linux então não devem rodar no Windows. 
+
+ 
+
+**Envio de Dados por Sockets (Pausado) 
+
+Para utilizar qualquer código dessa pasta é necessário instalar a biblioteca OpenCV no computador e configurar a IDE para importar ela, abrir o código fonte na IDE e trocar o endereço da câmera para uma que esteja conectada a máquina, tem dois códigos em C++ na estrutura de projeto do Code::Blocks um para enviar imagens da câmera e outro para receber, e um código C++ que pode ser compilado por qualquer IDE C++ e executado como servidor, os códigos podem ser executados em maquinas diferentes desde que estejam numa mesma rede interna e é necessário trocar o ip de conexão socket em todos para o ip da máquina que servirá como servidor e a câmera deve estar conectada a máquina que vai enviar as imagens (no caso de câmera ip basta estar na mesma rede e colocar o endereço da câmera no código). 
