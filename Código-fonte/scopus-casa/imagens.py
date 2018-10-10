@@ -107,11 +107,11 @@ class Imagens(object):
         
         self.primarybg = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
         cont = 0
-        sensibilidade = 5
+        sensibilidade = 7
         while((len(contours) > 0) & (cont < 130)):
             cont = cont+1
             if(cont > 50):
-                sensibilidade = 10
+                sensibilidade = 20
             time.sleep(0.1)
             print(cont)
             ret, preFrame = self.video_capture.read()

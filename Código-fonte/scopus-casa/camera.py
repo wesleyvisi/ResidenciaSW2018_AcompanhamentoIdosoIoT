@@ -6,7 +6,7 @@ import sys
 from objeto import Objeto
 from imagens import Imagens
 import threading 
-from asn1crypto._ffi import null
+
 
 
 
@@ -190,7 +190,6 @@ class Camera(object):
             
             
             
-        video_capture.release()
         cv2.destroyAllWindows()
         
         
@@ -200,12 +199,12 @@ class Camera(object):
         
         time.sleep(1)
         while True:
-            if(self.imagens != null):
+            if(not (self.imagens is None)):
                 if(not self.imagens.pegandoBackground):
                     time.sleep(0.2)
-                    cv2.imshow("bin - "+self.camera,self.imagens.bin)
-                    cv2.imshow("bg - "+self.camera,self.imagens.bg)
-                    cv2.imshow("Frame - "+self.camera,self.imagens.frameShow)
+                    cv2.imshow("bin - "+str(self.camera),self.imagens.bin)
+                    cv2.imshow("bg - "+str(self.camera),self.imagens.bg)
+                    cv2.imshow("Frame - "+str(self.camera),self.imagens.frameShow)
                     
                     waitKey = cv2.waitKey(1) 
                     if waitKey & 0xFF == ord('q'):  

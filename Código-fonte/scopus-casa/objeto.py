@@ -80,7 +80,7 @@ class Objeto(object):
             quadro = imagens.gray[self.y:self.y+self.h, self.x:self.x+self.w]
             
             
-            time.sleep(0.3)
+            time.sleep(0.2)
             
             frontalFaces = frontalFaceCascade.detectMultiScale(quadro, scaleFactor=1.2, minNeighbors=1)
                 
