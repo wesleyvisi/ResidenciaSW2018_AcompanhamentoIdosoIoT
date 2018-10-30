@@ -1,15 +1,3 @@
-**Localização de Pulseira Bluetooth 
-
-Para utilizar o algoritmo é necessário instalar as bibliotecas do ESP32 na IDE do Arduino, importe o código na IDE, troque o endereço MAC do Bluetooth para um dispositivo presente e transfira para a placa, ele vai acender um LED no pino 5 sempre que o dispositivo estiver próximo. 
-
- 
-
-**Processamento de Imagem 
-
-Para utilizar qualquer código dessa pasta é necessário instalar a biblioteca OpenCV no computador e configurar a IDE para importar ela, abrir o código fonte na IDE e trocar o endereço da câmera para uma que esteja conectada a máquina, nessa pasta existem códigos em C++ na estrutura de projeto do Code::Blocks e em python que podem ser abertos em qualquer IDE para python. Os códigos foram desenvolvidos em um ambiente Linux então não devem rodar no Windows. 
-
- 
-
-**Envio de Dados por Sockets (Pausado) 
-
-Para utilizar qualquer código dessa pasta é necessário instalar a biblioteca OpenCV no computador e configurar a IDE para importar ela, abrir o código fonte na IDE e trocar o endereço da câmera para uma que esteja conectada a máquina, tem dois códigos em C++ na estrutura de projeto do Code::Blocks um para enviar imagens da câmera e outro para receber, e um código C++ que pode ser compilado por qualquer IDE C++ e executado como servidor, os códigos podem ser executados em maquinas diferentes desde que estejam numa mesma rede interna e é necessário trocar o ip de conexão socket em todos para o ip da máquina que servirá como servidor e a câmera deve estar conectada a máquina que vai enviar as imagens (no caso de câmera ip basta estar na mesma rede e colocar o endereço da câmera no código). 
+O projeto utiliza a linguagem de programaçao python e para executa-lo e necessário instalar na máquina uma versão acima da 2.6 do python e a biblioteca do OpenCv.
+Para rodar o projeto conforme o esperado, é necessário realizar algumas configuraçoes no arquivo em python, acessando o detect.py do projeto e alterando o endereço da câmera, e alguns parâmetros da mesma, como por exemplo o ângulo de rotação, e a proporção, onde 1 e a imagem total e quanto menor o número menor a proporção fica.
+Para executar o projeto e necessário primeiramente rodar o detector.py para que inicie o processo, não tendo pessoas na frente da camera. Sendo assim o projeto estara sendo executado mostrando na tela as janelas de backgraund, da câmera e do binário para verificar objetos destacados.
