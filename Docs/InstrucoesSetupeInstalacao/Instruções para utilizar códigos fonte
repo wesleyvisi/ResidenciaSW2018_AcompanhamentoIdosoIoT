@@ -1,3 +1,0 @@
-O projeto utiliza a linguagem de programaçao python e para executa-lo e necessário instalar na máquina uma versão acima da 2.6 do python e a biblioteca do OpenCv.
-Para rodar o projeto conforme o esperado, é necessário realizar algumas configuraçoes no arquivo em python, acessando o detect.py do projeto e alterando o endereço da câmera, e alguns parâmetros da mesma, como por exemplo o ângulo de rotação, e a proporção, onde 1 e a imagem total e quanto menor o número menor a proporção fica.
-Para executar o projeto e necessário primeiramente rodar o detector.py para que inicie o processo, não tendo pessoas na frente da camera. Sendo assim o projeto estara sendo executado mostrando na tela as janelas de backgraund, da câmera e do binário para verificar objetos destacados.

@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="30dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/textView_ip"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="IP"
+            android:layout_marginBottom="5px"
+            android:textSize="20dp"/>
+
+        <EditText
+            android:id="@+id/ip"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="25px"
+            android:text="192.168.1.101"
+            android:textSize="20dp" />
+
+        <TextView
+            android:id="@+id/textView_port"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5px"
+            android:text="Porta"
+            android:textSize="20dp" />
+
+        <EditText
+            android:id="@+id/port"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="50px"
+            android:text="5000"
+            android:textSize="20dp" />
+
+        <TextView
+            android:id="@+id/textView_user"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5px"
+            android:text="Usuário"
+            android:textSize="20dp" />
+
+        <EditText
+            android:id="@+id/user"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="50px"
+            android:text="wesley@"
+            android:textSize="20dp" />
+
+
+
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp">
+            <Button
+                android:id="@+id/conecta"
+                android:layout_width="wrap_content"
+                android:paddingHorizontal="30dp"
+                android:paddingVertical="10dp"
+                android:layout_height="wrap_content"
+                android:text="Conectar"
+                android:textSize="20dp"
+                android:background="@drawable/screen_border"
+                android:textColor="@color/white"
+                android:textStyle="bold"
+                android:layout_centerInParent="true"
+
+                />
+
+        </RelativeLayout>
+
+
+
+        <!--<RelativeLayout-->
+            <!--android:layout_width="fill_parent"-->
+            <!--android:layout_height="wrap_content">-->
+            <!--<Button-->
+                <!--android:id="@+id/tela2"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:paddingHorizontal="30dp"-->
+                <!--android:paddingVertical="10dp"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:text="tela2"-->
+                <!--android:textSize="20dp"-->
+                <!--android:background="@drawable/screen_border"-->
+                <!--android:textColor="@color/white"-->
+                <!--android:textStyle="bold"-->
+                <!--android:layout_centerInParent="true"-->
+
+                <!--/>-->
+
+        <!--</RelativeLayout>-->
+    </LinearLayout>
+
+</android.support.constraint.ConstraintLayout>

@@ -1,0 +1,268 @@
+package com.example.wesley.idoso;
+
+import android.app.IntentService;
+import android.content.Intent;
+import android.os.Message;
+import android.os.Messenger;
+import android.os.RemoteException;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.PrintWriter;
+import java.net.InetAddress;
+import java.net.Socket;
+import java.net.UnknownHostException;
+
+public class ConectaService extends IntentService {
+
+    public static boolean started = false;
+
+
+    String ip;
+    int port;
+    String user;
+    Socket socket;
+    Boolean ativo = true;
+    String message;
+    Messenger handler;
+    BufferedReader stdIn = null;
+    PrintWriter out;
+
+    /**
+     * A constructor is required, and must call the super IntentService(String)
+     * constructor with a name for the worker thread.
+     */
+    public ConectaService() {
+        super("ConectaServiceThread");
+
+    }
+
+
+    /**
+     * The IntentService calls this method from the default worker thread with
+     * the intent that started the service. When this method returns, IntentService
+     * stops the service, as appropriate.
+     */
+    @Override
+    protected void onHandleIntent(Intent intent) {
+        // Normally we would do some work here, like download a file.
+        // For our sample, we just sleep for 5 seconds.
+        this.ip =  intent.getStringExtra("ip");
+        this.port = intent.getIntExtra("port",5000);
+        this.user =  intent.getStringExtra("user");
+
+
+        handler = intent.getParcelableExtra("handler");
+
+
+
+        conectaSocket();
+
+
+
+
+        Message msg = new Message();
+        msg.obj = "Conectado com: "+this.ip+":"+this.port;
+        msg.what = DadosService.STATUS_RUNNING;
+        try {
+            handler.send(msg);
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        }
+
+        JSONObject obj = null;
+
+
+        while(this.ativo){
+            obj = lerSocket();
+
+
+
+            msg = new Message();
+            msg.obj = obj;
+
+
+            msg.what = DadosService.STATUS_STATUS;
+
+            try {
+                handler.send(msg);
+            } catch (RemoteException e) {
+                e.printStackTrace();
+            }
+
+
+//            try {
+//                if(obj.getInt("tipo") == MENSAGEM_STATUS){
+//                    if(obj.getInt("estado") == ALERTA_RISCO){
+//                        Intent alerta = new Intent(ConectaService.this, Alerta.class);
+//                        alerta.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+//                        startActivity(alerta);
+//                    }
+//                }
+//            } catch (JSONException e) {
+//                e.printStackTrace();
+//            }
+
+
+        }
+
+
+        try {
+            this.socket.shutdownInput();
+            this.socket.shutdownOutput();
+            this.socket.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+
+
+
+
+
+    }
+
+
+
+    private void conectaSocket(){
+
+        this.socket = null;
+
+
+        while(this.socket == null) {
+            try {
+
+                InetAddress serverAddr = InetAddress.getByName(this.ip);
+
+
+                this.socket = new Socket(serverAddr, this.port);
+
+
+            } catch (UnknownHostException e1) {
+                e1.printStackTrace();
+
+            } catch (IOException e1) {
+
+                e1.printStackTrace();
+
+            }
+
+            if(this.socket == null){
+                try {
+                    Thread.sleep(5000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+
+
+
+        JSONObject obj = null;
+
+
+
+
+        try {
+            this.stdIn = new BufferedReader(new InputStreamReader(this.socket.getInputStream()));
+            this.out = new PrintWriter(this.socket.getOutputStream(), true);
+            this.out.print("2");
+            this.out.print(String.format("%03d", this.user.length()));
+            this.out.print(this.user);
+
+            this.out.flush();
+
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+    private void desconectaSocket(){
+        try {
+            this.socket.shutdownInput();
+            this.socket.shutdownOutput();
+            this.socket.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+
+    private JSONObject lerSocket(){
+
+        JSONObject obj = null;
+        message = null;
+        int erro = -1;
+
+        while(message == null) {
+            erro += 1;
+
+            try {
+                message = this.stdIn.readLine();
+
+
+            } catch (IOException e) {
+                e.printStackTrace();
+
+            }
+
+            if(erro > 50){
+                desconectaSocket();
+                conectaSocket();
+                erro = -1;
+            }
+
+
+        }
+
+        try {
+
+            obj = new JSONObject(message);
+
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        return obj;
+    }
+
+
+
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        try {
+            this.ativo = false;
+            this.socket.shutdownInput();
+            this.socket.shutdownOutput();
+            this.socket.close();
+
+
+            Message msg = new Message();
+            msg.what = DadosService.STATUS_FINISHED;
+
+            try {
+                handler.send(msg);
+            } catch (RemoteException e) {
+                e.printStackTrace();
+            }
+
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+}
+
+
